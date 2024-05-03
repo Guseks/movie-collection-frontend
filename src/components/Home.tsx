@@ -26,10 +26,14 @@ export const Home = () => {
   `;
 
   const NewMoviesDisplay = styled.div`
-    height: 470px;
-    overflow-x: auto;
+    height: 450px;
+    overflow-x: hidden;
     scroll-behavior: smooth;
   `;
+  const Carousell = styled.div`
+    height: 550px;
+  `;
+
   const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
   const API_ROUTE = "/discover/movie";
 
@@ -68,15 +72,21 @@ export const Home = () => {
         <ImageMovie src={starWarsImageRogue} className="border-r-4" />
         <ImageMovie src={avatarImage} className="" />
       </MovieImageContainer>
+      <Carousell className="grid grid-flow-row overflow-hidden border-4">
+        <NewMoviesDisplay className="h-96 grid grid-flow-col ">
+          {movieList.map((movie: Movie) => (
+            <div className="w-60 border-r-2 border-b-2">
+              <img key={movie.id} src={`${IMAGE_URL}${movie.poster_path}`} />
+              <h4 className="font-bold text-xl p-2">{movie.title}</h4>
+            </div>
+          ))}
+        </NewMoviesDisplay>
+        <div className="flex gap-2 px-3 h-10 w-52">
+          <button className="border-2 w-20 hover:bg-stone-800">Left </button>
+          <button className="border-2 w-20 hover:bg-stone-800">Right </button>
+        </div>
+      </Carousell>
 
-      <NewMoviesDisplay className="border-4 w-full h-96 grid grid-flow-col">
-        {movieList.map((movie: Movie) => (
-          <div className="w-60 border-r-2">
-            <img key={movie.id} src={`${IMAGE_URL}${movie.poster_path}`} />
-            <h4 className="font-bold text-xl p-2">{movie.title}</h4>
-          </div>
-        ))}
-      </NewMoviesDisplay>
       <div className="border-4 w-full h-80 font-bold p-5">My list</div>
     </div>
   );
