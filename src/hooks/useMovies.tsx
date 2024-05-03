@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 interface searchOptions {
-  genreID: string;
+  genreID: string[];
   language: string;
   releaseDate: string;
   voteAverage: string;
   originalLanguage: string;
   includeAdult: string;
+  page: number;
 }
 
 interface useMoviesProps {
@@ -22,7 +23,7 @@ const useMovies = ({ searchOptions, apiRoute }: useMoviesProps) => {
   const API_KEY = import.meta.env.VITE_API_KEY;
 
   const queryParams = {
-    with_genres: searchOptions.genreID,
+    with_genres: searchOptions.genreID.join(" ,"),
     language: searchOptions.language,
     "primary_release_date.gte": searchOptions.releaseDate,
     "vote_average.gte": searchOptions.voteAverage,
