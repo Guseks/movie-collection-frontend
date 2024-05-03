@@ -23,7 +23,7 @@ const useMovies = ({ searchOptions, apiRoute }: useMoviesProps) => {
   const API_KEY = import.meta.env.VITE_API_KEY;
 
   const queryParams = {
-    with_genres: searchOptions.genreID.join(" ,"),
+    with_genres: searchOptions.genreID.join(" , "),
     language: searchOptions.language,
     "primary_release_date.gte": searchOptions.releaseDate,
     "vote_average.gte": searchOptions.voteAverage,
