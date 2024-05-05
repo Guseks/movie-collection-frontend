@@ -62,14 +62,22 @@ const MovieCard = ({ movie, genres }: movieCardProps) => {
         src={`${IMAGE_URL}${movie.poster_path}`}
       />
       <div
-        className="hidden group-hover:block p-8 absolute top-3 left-3 w-56 border-2 bg-black z-10 text-sm rounded-md font-semibold flex-col gap-2"
+        className="hidden group-hover:block p-4 absolute top-3 left-3 w-56 border-2 bg-black z-10 text-sm rounded-md font-semibold flex-col gap-4"
         ref={infoRef}
       >
         <p className="border-b-2 text-lg">Description</p>
         <p className="text-sm">{movie.overview}</p>
+        <div className="flex gap-2 items-center">
+          <p className="text-xs font-bold">Genres: </p>
+          <div className="flex flex-row gap-1 flex-wrap">
+            {movieGenres.map((genre: string) => (
+              <p className="text-xs">{genre},</p>
+            ))}
+          </div>
+        </div>
       </div>
-      <h4 className="font-bold text-lg px-2 py-1">{movie.title}</h4>
-      <p className="text-xs px-2">{movieGenres.join(", ")}</p>
+      <h4 className="font-bold text-base px-3 py-1">{movie.title}</h4>
+
       <div className="absolute right-2 flex gap-1 bottom-2">
         <button
           onMouseEnter={() => showInfo()}

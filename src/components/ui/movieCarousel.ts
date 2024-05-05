@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const NewMoviesDisplay = styled.div`
-  height: 480px;
+  height: 470px;
   width: 1579px;
   overflow-x: hidden;
   scroll-behavior: smooth;

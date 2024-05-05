@@ -59,7 +59,7 @@ export const Home = () => {
         <ImageMovie src={avatarImage} className="" />
       </MovieImageContainer>
       <MovieCarousel
-        title="Suggestions from Romance and Drama"
+        title="Popular in Romance and Drama"
         movieList={movieSuggestions}
       />
       {myMovies.length !== 0 && (
