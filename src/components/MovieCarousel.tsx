@@ -3,6 +3,7 @@ import MovieCard from "./MovieCard";
 import NavButtons from "./NavButtons";
 import useMovies from "../hooks/useMovies";
 import { Carousell, NewMoviesDisplay } from "./ui/movieCarousel";
+import useGenres from "../hooks/useGenres";
 
 interface Movie {
   id: number;
@@ -14,6 +15,11 @@ interface Movie {
   vote_count: number;
   genre_ids: number[];
   genres: string[];
+}
+
+interface Genre {
+  id: number;
+  name: string;
 }
 
 const MovieCarousel = () => {
@@ -30,14 +36,16 @@ const MovieCarousel = () => {
   };
 
   // Getting new movies
-  const { movieList } = useMovies({
+  const { movieList }: { movieList: Movie[] } = useMovies({
     searchOptions: searchOptions,
     apiRoute: API_ROUTE,
   });
 
+  const { genres }: { genres: Genre[] } = useGenres();
+
   const [scrollPosition, setScrollPosition] = useState(0);
   const moviesDisplayRef = useRef<HTMLDivElement>(null);
-  const scrolldistance = 248;
+  const scrolldistance = 264;
 
   const handleScroll = (direction: "left" | "right") => {
     const container = moviesDisplayRef.current;
@@ -63,7 +71,7 @@ const MovieCarousel = () => {
   };
 
   return (
-    <Carousell className="grid grid-flow-row overflow-hidden relative gap-3 bg-black p-5">
+    <Carousell className="grid grid-flow-row overflow-hidden relative p-5 bg-black justify-center items-center">
       <h4 className="font-bold m-0 text-2xl">
         Recommended for you in Romance and Drama
       </h4>
@@ -72,7 +80,7 @@ const MovieCarousel = () => {
         ref={moviesDisplayRef}
       >
         {movieList.map((movie: Movie) => (
-          <MovieCard key={movie.title} movie={movie} />
+          <MovieCard key={movie.title} movie={movie} genres={genres} />
         ))}
       </NewMoviesDisplay>
       <NavButtons handleScroll={handleScroll} />

@@ -4,7 +4,7 @@ interface navButtonsProps {
 
 const NavButtons = ({ handleScroll }: navButtonsProps) => {
   return (
-    <div className="flex gap-2 px-3 h-8 w-52 mb-4 absolute top-4 right-0 ">
+    <div className="flex gap-2 px-3 h-8 w-52 absolute top-8 right-0 ">
       <button
         onClick={() => handleScroll("left")}
         className="border-2 w-20 hover:bg-stone-800"

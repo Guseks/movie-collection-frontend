@@ -4,8 +4,9 @@ import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
-    <div className="pt-5 bg-gradient-to-br from-stone-900 to-gray-950">
+    <div className="bg-gradient-to-br from-stone-900 to-gray-950 flex flex-col items-center">
       <Navbar />
+
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>

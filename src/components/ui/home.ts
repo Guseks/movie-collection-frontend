@@ -8,6 +8,3 @@ export const MovieImageContainer = styled.div`
   display: flex;
 `;
 
-export const Container = styled.div`
-  width: 1768px;
-`;
