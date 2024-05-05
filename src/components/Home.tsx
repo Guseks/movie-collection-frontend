@@ -53,7 +53,7 @@ export const Home = () => {
 
   return (
     <div className="flex flex-col items-center gap-8 mt-8 pb-20">
-      <MovieImageContainer className="border-4">
+      <MovieImageContainer className="border-4 rounded-md">
         <ImageMovie src={starWarsImageHoth} className="border-r-4" />
         <ImageMovie src={starWarsImageRogue} className="border-r-4" />
         <ImageMovie src={avatarImage} className="" />
@@ -62,7 +62,9 @@ export const Home = () => {
         title="Suggestions from Romance and Drama"
         movieList={movieSuggestions}
       />
-      <MovieCarousel title="My list of movies" movieList={myMovies} />
+      {myMovies.length !== 0 && (
+        <MovieCarousel title="My list of movies" movieList={myMovies} />
+      )}
     </div>
   );
 };

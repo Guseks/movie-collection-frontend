@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import MovieCard from "./MovieCard";
 import NavButtons from "./NavButtons";
-import useMovies from "../hooks/useMovies";
 import { Carousell, NewMoviesDisplay } from "./ui/movieCarousel";
 import useGenres from "../hooks/useGenres";
 
@@ -69,7 +68,7 @@ const MovieCarousel = ({ title, movieList }: movieCarouselProps) => {
   };
 
   return (
-    <Carousell className="grid grid-flow-row overflow-hidden relative p-5 bg-black justify-center items-center border-2">
+    <Carousell className="grid grid-flow-row overflow-hidden relative p-5 bg-black justify-center items-center rounded-md">
       <h4 className="font-bold m-0 text-2xl">{title}</h4>
       <NewMoviesDisplay
         className="h-96 grid grid-flow-col gap-2"
