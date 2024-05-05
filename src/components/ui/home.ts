@@ -7,4 +7,3 @@ export const MovieImageContainer = styled.div`
   width: 1065px;
   display: flex;
 `;
-

@@ -22,24 +22,22 @@ interface Genre {
   name: string;
 }
 
-const MovieCarousel = () => {
-  const API_ROUTE = "/discover/movie";
+interface movieCarouselProps {
+  title: string;
+  movieList: Movie[];
+}
 
-  const searchOptions = {
-    genreID: ["10749", "18"], //35 10751 28 "10749", "18"
-    language: "en-US",
-    releaseDate: "2020-01-01",
-    voteAverage: "7.5",
-    originalLanguage: "en",
-    includeAdult: "false",
-    page: 1,
-  };
+/* 
+TODO: Make MovieCarousel a general carousel component. Move code for selecting movies out of this component and into parent component.
 
+//TODO: Make component take props for title
+Keep code for scrolling in this component. Move SearchOptions and fetching of movieList into parent Component (Home)
+This would enable carousel component to be reusable for displaying things like my list of favorite movies (Hopefully).
+On Home page that is. 
+*/
+
+const MovieCarousel = ({ title, movieList }: movieCarouselProps) => {
   // Getting new movies
-  const { movieList }: { movieList: Movie[] } = useMovies({
-    searchOptions: searchOptions,
-    apiRoute: API_ROUTE,
-  });
 
   const { genres }: { genres: Genre[] } = useGenres();
 
@@ -71,10 +69,8 @@ const MovieCarousel = () => {
   };
 
   return (
-    <Carousell className="grid grid-flow-row overflow-hidden relative p-5 bg-black justify-center items-center">
-      <h4 className="font-bold m-0 text-2xl">
-        Recommended for you in Romance and Drama
-      </h4>
+    <Carousell className="grid grid-flow-row overflow-hidden relative p-5 bg-black justify-center items-center border-2">
+      <h4 className="font-bold m-0 text-2xl">{title}</h4>
       <NewMoviesDisplay
         className="h-96 grid grid-flow-col gap-2"
         ref={moviesDisplayRef}
