@@ -1,8 +1,8 @@
 import starWarsImageHoth from "../assets/starWarsHoth.jpg";
 import starWarsImageRogue from "../assets/starWarsRogue.jpg";
 import avatarImage from "../assets/avatarForest.jpg";
-import MovieCarousel from "./MovieCarousel";
-import { MovieImageContainer, ImageMovie } from "./ui/home";
+import MovieCarousel from "../components/MovieCarousel";
+import { MovieImageContainer, ImageMovie } from "../components/ui/home";
 import { useEffect, useState } from "react";
 import useMovies from "../hooks/useMovies";
 

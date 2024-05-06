@@ -16,17 +16,6 @@ const Navbar = () => {
           </NavLink>
         </li>
 
-        <li className="font-bold text-3xl">
-          <NavLink
-            style={({ isActive }) => {
-              return isActive ? { textDecoration: "underline" } : {};
-            }}
-            className="nav-link underline-offset-8"
-            to="/genres"
-          >
-            Genres
-          </NavLink>
-        </li>
         <li className="font-bold text-3xl underline-offset-8">
           <NavLink
             style={({ isActive }) => {

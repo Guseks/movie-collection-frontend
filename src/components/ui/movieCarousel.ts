@@ -7,7 +7,7 @@ export const NewMoviesDisplay = styled.div`
   scroll-behavior: smooth;
   transition: scroll-behavior 0.5s ease;
 `;
-export const Carousell = styled.div`
+export const Carousel = styled.div`
   height: 600px;
   width: 1630px;
 `;

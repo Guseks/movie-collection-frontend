@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import { Home } from "./components/Home";
+import { Home } from "./pages/Home";
 import Navbar from "./components/Navbar";
+import Discover from "./pages/Discover";
 
 /*
 TODO: Create pages for discovering new movies. Where user can select search Options and press search. 
@@ -18,6 +19,7 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/discover" element={<Discover />} />
       </Routes>
     </div>
   );

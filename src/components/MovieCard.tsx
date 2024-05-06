@@ -71,7 +71,9 @@ const MovieCard = ({ movie, genres }: movieCardProps) => {
           <p className="text-xs font-bold">Genres: </p>
           <div className="flex flex-row gap-1 flex-wrap">
             {movieGenres.map((genre: string) => (
-              <p className="text-xs">{genre},</p>
+              <p key={genre} className="text-xs">
+                {genre},
+              </p>
             ))}
           </div>
         </div>
