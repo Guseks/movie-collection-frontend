@@ -14,7 +14,7 @@ TODO: page for displaying my list of favorite movies in a grid view
 
 const App = () => {
   return (
-    <div className="bg-gradient-to-br from-stone-900 to-gray-950 flex flex-col items-center">
+    <div className="bg-gradient-to-br from-stone-900 to-gray-950 flex flex-col items-center gap-8">
       <Navbar />
 
       <Routes>

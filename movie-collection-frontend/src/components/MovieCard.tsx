@@ -60,7 +60,10 @@ const MovieCard = ({ movie, genres }: movieCardProps) => {
 */
 
   return (
-    <div className="w-64 border-2 border-stone-950 shadow-md shadow-black relative rounded-sm ">
+    <div
+      className="w-64 border-2 border-stone-950 shadow-md shadow-black relative rounded-sm"
+      style={{ height: "460px" }}
+    >
       <img
         className=""
         key={movie.id}

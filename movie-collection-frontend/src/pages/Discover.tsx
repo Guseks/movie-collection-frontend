@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import useGenres from "../hooks/useGenres";
 import { useState } from "react";
+import useMovies from "../hooks/useMovies";
+import MovieCard from "../components/MovieCard";
 
 interface Genre {
   id: number;
@@ -21,6 +23,18 @@ interface Movie {
 }
 */
 
+interface Movie {
+  id: number;
+  title: string;
+  overview: string;
+  poster_path: string;
+  release_date: string;
+  vote_average: number;
+  vote_count: number;
+  genre_ids: number[];
+  genres: string[];
+}
+
 interface SelectedOptions {
   releaseYear: number;
   rating: number;
@@ -28,20 +42,21 @@ interface SelectedOptions {
 }
 
 const SideMenu = styled.div`
-  height: 1000px;
+  width: 200px;
 `;
 
 const MainContent = styled.div`
-  width: 1300px;
+  width: 100%;
+  height: 100%;
 `;
 
 const Container = styled.div`
   height: 100%;
+  width: 95%;
+  margin: 0 auto;
 `;
 
-const DisplayArea = styled.div`
-  height: 920px;
-`;
+const DisplayArea = styled.div``;
 
 const Discover = () => {
   const { genres } = useGenres();
@@ -90,8 +105,23 @@ const Discover = () => {
     });
   }
 
+  const searchOptions = {
+    genreID: ["10749", "18"], //35 10751 28 "10749", "18"
+    language: "en-US",
+    releaseDate: "2020-01-01",
+    voteAverage: "7.5",
+    originalLanguage: "en",
+    includeAdult: "false",
+    page: 1,
+  };
+  const API_ROUTE = "/discover/movie";
+  const { movieList }: { movieList: Movie[] } = useMovies({
+    searchOptions: searchOptions,
+    apiRoute: API_ROUTE,
+  });
+
   return (
-    <Container className="flex bg-black px-10 py-5">
+    <Container className="flex bg-black px-10 py-5 rounded-md">
       <SideMenu className="w-72 border-r-4   flex flex-col gap-2">
         <h4 className="font-bold text-2xl">Categories</h4>
         <div className="flex flex-col gap-2">
@@ -148,7 +178,11 @@ const Discover = () => {
             </select>
           </div>
         </div>
-        <DisplayArea className="bg-red-950">Display Area</DisplayArea>
+        <DisplayArea className="flex flex-wrap gap-5 p-5 justify-center">
+          {movieList.map((movie) => (
+            <MovieCard movie={movie} genres={genres} />
+          ))}
+        </DisplayArea>
       </MainContent>
     </Container>
   );

@@ -52,7 +52,7 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center gap-8 mt-8 pb-20">
+    <div className="flex flex-col items-center gap-8 pb-20">
       <MovieImageContainer className="border-4 rounded-md">
         <ImageMovie src={starWarsImageHoth} className="border-r-4" />
         <ImageMovie src={starWarsImageRogue} className="border-r-4" />
