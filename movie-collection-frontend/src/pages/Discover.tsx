@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import useGenres from "../hooks/useGenres";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useMovies from "../hooks/useMovies";
 import MovieCard from "../components/MovieCard";
 
@@ -24,7 +24,8 @@ interface Movie {
 interface SelectedOptions {
   releaseYear: number;
   rating: number;
-  genres: number[];
+  genres: string[];
+  page: string;
 }
 
 const SideMenu = styled.div`
@@ -52,7 +53,10 @@ const Discover = () => {
     releaseYear: 2010,
     rating: 7,
     genres: [],
+    page: "1",
   });
+
+  const [movies, setMovies] = useState<Movie[]>([]);
 
   const years = [];
   const currentYear = new Date().getFullYear();
@@ -75,9 +79,11 @@ const Discover = () => {
   }
 
   function handleGenresChange(genreId: number) {
-    const updatedGenres = selectedOptions.genres.includes(genreId)
-      ? selectedOptions.genres.filter((genre: number) => genre !== genreId)
-      : [...selectedOptions.genres, genreId];
+    const updatedGenres = selectedOptions.genres.includes(genreId.toString())
+      ? selectedOptions.genres.filter(
+          (genre: string) => genre !== genreId.toString()
+        )
+      : [...selectedOptions.genres, genreId.toString()];
 
     setSelectedOptions({
       ...selectedOptions,
@@ -93,19 +99,27 @@ const Discover = () => {
   }
 
   const searchOptions = {
-    genreID: ["10749", "18"], //35 10751 28 "10749", "18"
+    genreID: selectedOptions.genres, //35 10751 28 "10749", "18"
     language: "en-US",
-    releaseDate: "2020-01-01",
-    voteAverage: "7.5",
+    releaseDate: `${selectedOptions.releaseYear}-01-01`,
+    voteAverage: `${selectedOptions.rating}`,
     originalLanguage: "en",
     includeAdult: "false",
-    page: "1",
+    page: `${selectedOptions.page}`,
   };
+
   const API_ROUTE = "/discover/movie";
   const { movieList }: { movieList: Movie[] } = useMovies({
     searchOptions: searchOptions,
     apiRoute: API_ROUTE,
   });
+
+  /*
+<button className="lg:absolute max-[700px]:absolute max-[700px]:right-16 max-[700px]:top-10 lg:right-10 py-4 px-10 rounded-md font-bold hover:bg-stone-900">
+            Search
+          </button>
+
+*/
 
   return (
     <Container className="flex bg-black px-5 py-5 rounded-md">
@@ -174,9 +188,16 @@ const Discover = () => {
               ))}
             </select>
           </div>
-          <button className="lg:absolute max-[700px]:absolute max-[700px]:right-16 max-[700px]:top-10 lg:right-10 py-4 px-10 rounded-md font-bold hover:bg-stone-900">
-            Search
-          </button>
+
+          <div className="lg:absolute lg:right-10 max-[700px]:absolute max-[700px]:right-16 max-[700px]:top-8 h-12 flex justify-center items-center">
+            <div className="h-full bg-stone-900 w-10 hover:border-2 cursor-pointer rounded-md  flex items-center justify-center">
+              <button className=" h-0 w-0 border-x-8 border-x-transparent border-b-8 border-b-white -rotate-90" />
+            </div>
+            <div className="p-5 font-bold text-lg"> {selectedOptions.page}</div>
+            <div className="h-full bg-stone-900 w-10 hover:border-2 cursor-pointer rounded-md  flex items-center justify-center">
+              <button className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-b-white rotate-90" />
+            </div>
+          </div>
         </div>
         <DisplayArea className=" max-[700px]:flex max-[700px]:justify-center max-[700px]:flex-wrap  lg:grid md:flex md:flex-wrap lg:grid-cols-6 gap-3 py-3 px-2">
           {movieList.map((movie) => (
