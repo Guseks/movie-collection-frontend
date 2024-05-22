@@ -8,7 +8,7 @@ interface searchOptions {
   voteAverage: string;
   originalLanguage: string;
   includeAdult: string;
-  page: number;
+  page: string;
 }
 
 interface useMoviesProps {
@@ -23,7 +23,7 @@ const useMovies = ({ searchOptions, apiRoute }: useMoviesProps) => {
   const API_KEY = import.meta.env.VITE_API_KEY;
 
   const queryParams = {
-    with_genres: searchOptions.genreID.join(" , "),
+    with_genres: searchOptions.genreID.join(" | "),
     language: searchOptions.language,
     "primary_release_date.gte": searchOptions.releaseDate,
     "vote_average.gte": searchOptions.voteAverage,
@@ -39,13 +39,20 @@ const useMovies = ({ searchOptions, apiRoute }: useMoviesProps) => {
 
     console.log(API_URL);
     async function getMovies() {
+      console.log(
+        `${BASE_API_URL}${apiRoute}?api_key=${API_KEY}&${formattedParams}&page=${parseInt(
+          searchOptions.page
+        )}`
+      );
       const response = await axios.get(
-        `${BASE_API_URL}${apiRoute}?api_key=${API_KEY}&${formattedParams}`
+        `${BASE_API_URL}${apiRoute}?api_key=${API_KEY}&${formattedParams}&page=${parseInt(
+          searchOptions.page
+        )}`
       );
       setMovieList(response.data.results);
     }
     getMovies();
-  }, []);
+  }, [searchOptions.page]);
 
   return { movieList, setMovieList };
 };

@@ -32,7 +32,7 @@ export const Home = () => {
     voteAverage: "7.5",
     originalLanguage: "en",
     includeAdult: "false",
-    page: 1,
+    page: "1",
   };
   const API_ROUTE = "/discover/movie";
   const { movieList }: { movieList: Movie[] } = useMovies({

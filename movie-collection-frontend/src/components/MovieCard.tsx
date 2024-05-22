@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 
 interface Movie {
   id: number;
@@ -21,6 +22,10 @@ interface Genre {
   id: number;
   name: string;
 }
+
+const Card = styled.div`
+  height: 475px;
+`;
 
 const MovieCard = ({ movie, genres }: movieCardProps) => {
   const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
@@ -60,10 +65,7 @@ const MovieCard = ({ movie, genres }: movieCardProps) => {
 */
 
   return (
-    <div
-      className="w-64 border-2 border-stone-950 shadow-md shadow-black relative rounded-sm"
-      style={{ height: "460px" }}
-    >
+    <Card className="w-64 border-2 border-stone-950 shadow-md shadow-black relative rounded-sm pb-3 hover:shadow-sm hover:shadow-white hover:cursor-pointer">
       <img
         className=""
         key={movie.id}
@@ -86,9 +88,9 @@ const MovieCard = ({ movie, genres }: movieCardProps) => {
           </div>
         </div>
       </div>
-      <h4 className="font-bold text-base px-3 py-1">{movie.title}</h4>
+      <h4 className="font-bold text-base px-3 py-2">{movie.title}</h4>
 
-      <div className="absolute right-2 flex gap-1 bottom-2">
+      <div className="absolute flex gap-1 bottom-2 right-2 ">
         <button
           onMouseEnter={() => showInfo()}
           onMouseLeave={() => hideInfo()}
@@ -100,7 +102,7 @@ const MovieCard = ({ movie, genres }: movieCardProps) => {
           Add to list
         </button>
       </div>
-    </div>
+    </Card>
   );
 };
 
