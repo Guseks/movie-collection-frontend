@@ -54,11 +54,14 @@ const useMovies = ({ searchOptions, apiRoute }: useMoviesProps) => {
       setMovieList(response.data.results);
     }
     getMovies();
-  }, [
-    searchOptions.genreID,
+  }, [searchOptions]);
+
+  /*
+  searchOptions.genreID,
     searchOptions.releaseDate,
     searchOptions.voteAverage,
-  ]);
+    searchOptions.page,
+    */
 
   return { movieList, setMovieList };
 };
