@@ -5,6 +5,8 @@ import MovieCarousel from "../components/MovieCarousel";
 import { MovieImageContainer, ImageMovie } from "../components/ui/home";
 import { useEffect, useState } from "react";
 import useMovies from "../hooks/useMovies";
+import MovieCard from "../components/MovieCard";
+import useGenres from "../hooks/useGenres";
 
 interface Movie {
   id: number;
@@ -24,6 +26,8 @@ export const Home = () => {
   //TODO: Add another movieCarousel component for displaying my list of favorite movies.
 
   const [myMovies, setMyMovies] = useState<Movie[]>([]);
+
+  const { genres } = useGenres();
 
   const searchOptions = {
     genreID: ["10749", "18"], //35 10751 28 "10749", "18"
@@ -52,19 +56,31 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center gap-8 pb-20">
-      <MovieImageContainer className="border-4 rounded-md">
+    <div className="flex flex-col items-center gap-8 pb-20 -mt-10 lg:mt-0">
+      <MovieImageContainer className="border-4 rounded-md hidden lg:flex">
         <ImageMovie src={starWarsImageHoth} className="border-r-4" />
         <ImageMovie src={starWarsImageRogue} className="border-r-4" />
         <ImageMovie src={avatarImage} className="" />
       </MovieImageContainer>
-      <MovieCarousel
-        title="Popular in Romance and Drama"
-        movieList={movieSuggestions}
-      />
-      {myMovies.length !== 0 && (
-        <MovieCarousel title="My list of movies" movieList={myMovies} />
-      )}
+      <div className="hidden lg:block">
+        <MovieCarousel
+          title="Popular in Romance and Drama"
+          movieList={movieSuggestions}
+        />
+        {myMovies.length !== 0 && (
+          <MovieCarousel title="My list of movies" movieList={myMovies} />
+        )}
+      </div>
+      <div className="flex flex-col py-10 px-5 gap-7 m-6 mt-10 bg-black rounded-md">
+        <h4 className="font-bold text-4xl ml-12 ">
+          Popular in Romance and Drama
+        </h4>
+        <div className="flex flex-wrap justify-center">
+          {movieSuggestions.map((movie) => (
+            <MovieCard movie={movie} genres={genres} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

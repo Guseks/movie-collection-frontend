@@ -6,6 +6,11 @@ export default {
   ],
   theme: {
     extend: {},
+    height: {
+      sm: "700px",
+      lg: "475px"
+    }
+
   },
   plugins: [],
 }

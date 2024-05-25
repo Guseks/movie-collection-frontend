@@ -12,8 +12,9 @@ export const MainContent = styled.div`
 export const Container = styled.div`
   height: 100%;
   width: 95%;
-
   margin: 0 auto;
+
+  
 `;
 
 export const GenreButton = styled.button<{ selected: boolean }>`
