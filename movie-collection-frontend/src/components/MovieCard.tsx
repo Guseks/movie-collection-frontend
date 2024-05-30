@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { useMoviesContext } from "../contexts/MoviesContext";
+import {
+  addMovieToList,
+  getMovies,
+  removeMovieFromList,
+} from "../services/movieServices";
 
 interface Movie {
   id: number;
@@ -23,14 +29,54 @@ interface Genre {
   name: string;
 }
 
+interface MovieContextValue {
+  myMovies: Movie[];
+  setMyMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
+}
+
 const Card = styled.div``;
+
+const AddButton = styled.button<{ selected: boolean }>`
+  ${({ selected }) =>
+    selected
+      ? `
+    background-color: #e2e8f0; // Tailwind CSS class bg-stone-200 equivalent
+    border-color: #e2e8f0;
+    color: black;
+    &:hover {
+      background-color: #CBD5E0;
+    }
+  `
+      : `
+    &:hover {
+      border-color: #e2e8f0;
+    }
+  `}
+`;
 
 const MovieCard = ({ movie, genres }: movieCardProps) => {
   const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
 
+  const { myMovies, setMyMovies }: MovieContextValue = useMoviesContext();
+  const [isMovieInList, setIsMovieInList] = useState(false);
   const [movieGenres, setMovieGenres] = useState<string[]>([]);
 
   const infoRef = useRef<HTMLDivElement>(null);
+
+  async function checkForMovie() {
+    const foundMovie = myMovies.some((m: Movie) => m.id === movie.id);
+    if (foundMovie) {
+      console.log(`Movie  ${movie.title} is in list`);
+      setIsMovieInList(true);
+    } else {
+      setIsMovieInList(false);
+    }
+  }
+
+  useEffect(() => {
+    console.log("checking for movie in list ", movie.id);
+    checkForMovie();
+  }, []);
 
   useEffect(() => {
     function getMovieGenres() {
@@ -41,9 +87,7 @@ const MovieCard = ({ movie, genres }: movieCardProps) => {
     }
 
     setMovieGenres(getMovieGenres());
-
-    return;
-  }, []);
+  }, [genres, movie.genre_ids]);
 
   function showInfo() {
     if (infoRef.current) {
@@ -57,10 +101,31 @@ const MovieCard = ({ movie, genres }: movieCardProps) => {
     }
   }
 
-  /*
+  async function handleMovieList(movie: Movie) {
+    if (isMovieInList) {
+      try {
+        await removeMovieFromList(movie);
+        const currentMovies = await getMovies();
+        console.log(currentMovies);
+        setMyMovies(currentMovies);
 
-
-*/
+        setIsMovieInList(false);
+      } catch (error) {
+        console.error("Error removing movie from list: ", error);
+      }
+    } else {
+      try {
+        console.log("Adding movie to list: ", movie);
+        await addMovieToList(movie);
+        const currentMovies = await getMovies();
+        console.log(currentMovies);
+        setMyMovies(currentMovies);
+        setIsMovieInList(true);
+      } catch (error) {
+        console.error("Error adding movie to list: ", error);
+      }
+    }
+  }
 
   return (
     <Card className="h-sm lg:h-lg w-96 lg:w-64 border-2 border-stone-950 shadow-md shadow-black relative rounded-sm pb-3 hover:shadow-sm hover:shadow-white hover:cursor-pointer">
@@ -98,9 +163,13 @@ const MovieCard = ({ movie, genres }: movieCardProps) => {
         >
           More info
         </button>
-        <button className="py-1 lg:text-xs font-semibold right-2  px-2 bottom-2 rounded-md hover:bg-stone-900 text-xl">
-          Add to list
-        </button>
+        <AddButton
+          className="w-20 py-1 lg:text-xs font-semibold right-2  px-2 bottom-2 rounded-md hover:bg-stone-900 text-xl"
+          onClick={() => handleMovieList(movie)}
+          selected={isMovieInList}
+        >
+          {isMovieInList ? "Remove" : "Add"}
+        </AddButton>
       </div>
     </Card>
   );
