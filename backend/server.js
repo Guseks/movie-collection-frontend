@@ -1,7 +1,13 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import cors from 'cors';
 import router from "./src/routes.js"
+import dotenv from "dotenv"
 import { errorHandler } from './src/middleware/errorHandler.js'
+import { Movie } from './src/database/movieModel.js';
+
+dotenv.config();
+
 
 const app = express();
 
@@ -12,7 +18,43 @@ app.use("/", router);
 app.use(errorHandler);
 
 const port = 3001;
+const hostname = 'localhost';
 
+/*
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+*/
+
+async function connectToDatabase() {
+  const dbPath = process.env.dbPath;
+  
+  try {
+    await mongoose.connect(dbPath);
+    /*
+    const testMovie = new Movie ({
+      movieID: "1234",
+      title: "Test Movie"
+    });
+    testMovie.save();
+    */
+    console.log('Connected to MongoDB');
+    
+    
+  }
+  catch (error){
+    console.error("Error during database initialization", error);
+  }
+  
+}
+
+// Call the connectToDatabase function and then start the server
+connectToDatabase().then(() => {
+  app.listen(port, hostname, () => {
+    console.log(`Server is running on http://${hostname}:${port}`);
+  });
+}).catch(err => {
+  console.error('Error connecting to database:', err);
+});
+

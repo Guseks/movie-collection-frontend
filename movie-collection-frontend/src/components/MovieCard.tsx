@@ -74,7 +74,6 @@ const MovieCard = ({ movie, genres }: movieCardProps) => {
   }
 
   useEffect(() => {
-    console.log("checking for movie in list ", movie.id);
     checkForMovie();
   }, []);
 
