@@ -16,7 +16,6 @@ interface Movie {
   vote_average: number;
   vote_count: number;
   genre_ids: number[];
-  genres: string[];
 }
 
 interface movieCardProps {
@@ -154,16 +153,16 @@ const MovieCard = ({ movie, genres }: movieCardProps) => {
         {movie.title}
       </h4>
 
-      <div className="absolute flex gap-6 lg:gap-1 bottom-2 right-2 ">
+      <div className="absolute flex gap-6 lg:gap-1 bottom-2 lg:right-2 right-5 ">
         <button
           onMouseEnter={() => showInfo()}
           onMouseLeave={() => hideInfo()}
-          className="p-1 lg:text-xs font-semibold left-2 bottom-2 px-2 rounded-md hover:bg-stone-900 group text-xl"
+          className="lg:text-xs font-semibold left-2 bottom-2 py-2 px-4  lg:px-2 rounded-md hover:bg-stone-900 group text-xl"
         >
           More info
         </button>
         <AddButton
-          className="w-20 py-1 lg:text-xs font-semibold right-2  px-2 bottom-2 rounded-md hover:bg-stone-900 text-xl"
+          className="w-28 lg:w-16  lg:text-xs font-semibold right-2 py-2 lg:px-2 bottom-2 rounded-md hover:bg-stone-900 text-xl"
           onClick={() => handleMovieList(movie)}
           selected={isMovieInList}
         >

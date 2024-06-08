@@ -9,7 +9,6 @@ interface Movie {
   vote_average: number;
   vote_count: number;
   genre_ids: number[];
-  genres: string[];
 }
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
