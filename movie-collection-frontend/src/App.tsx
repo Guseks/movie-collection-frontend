@@ -3,6 +3,7 @@ import { Home } from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Discover from "./pages/Discover";
 import { MoviesProvider } from "./contexts/MoviesContext";
+import MyMovies from "./pages/MyMovies";
 
 /*
 TODO: Create pages for discovering new movies. Where user can select search Options and press search. 
@@ -21,6 +22,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/discover" element={<Discover />} />
+          <Route path="/myMovies" element={<MyMovies />} />
         </Routes>
       </MoviesProvider>
     </div>

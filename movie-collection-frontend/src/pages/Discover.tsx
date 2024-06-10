@@ -63,15 +63,14 @@ const Discover = () => {
       releaseYear: year,
     });
   }
-
-  function handleGenresChange(newGenre: Genre) {
+  function handleGenresChange(newGenreID: number) {
     let updatedGenres: string[] = [];
-    if (selectedOptions.genres.includes(newGenre.id.toString())) {
+    if (selectedOptions.genres.includes(newGenreID.toString())) {
       updatedGenres = selectedOptions.genres.filter(
-        (genre: string) => genre !== newGenre.id.toString()
+        (genre: string) => genre !== newGenreID.toString()
       );
     } else {
-      updatedGenres = [...selectedOptions.genres, newGenre.id.toString()];
+      updatedGenres = [...selectedOptions.genres, newGenreID.toString()];
     }
 
     setSelectedOptions({
@@ -133,7 +132,7 @@ const Discover = () => {
             <GenreButton
               key={genre.id}
               selected={selectedOptions.genres.includes(genre.id.toString())}
-              onClick={() => handleGenresChange(genre)}
+              onClick={() => handleGenresChange(genre.id)}
               className="font-bold py-2 border-2 border-stone-700  rounded-lg"
             >
               {genre.name}
@@ -183,9 +182,16 @@ const Discover = () => {
           </div>
           <div className="flex gap-3 items-center lg:hidden md:py-3 text-2xl font-bold">
             <h4>Genre: </h4>
-            <select className="bg-stone-950 p-2 w-28 py-4">
+            <select
+              className="bg-stone-950 p-2 w-28 py-4"
+              onChange={(e) => handleGenresChange(parseInt(e.target.value))}
+            >
               {genres.map((genre: Genre) => (
-                <option className="bg-stone-950 p-3" key={genre.id}>
+                <option
+                  className="bg-stone-950 p-3"
+                  key={genre.id}
+                  value={genre.id}
+                >
                   {genre.name}
                 </option>
               ))}

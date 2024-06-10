@@ -36,10 +36,9 @@ export const MoviesProvider = ({ children }: MovieContextProps) => {
 
   useEffect(() => {
     const fetchMovies = async () => {
+      const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
       try {
-        const response = await axios.get<Movie[]>(
-          "http://localhost:3001/movies"
-        );
+        const response = await axios.get<Movie[]>(`${BACKEND_URL}/movies`);
         console.log("Fetched Movies: ", response.data);
         setMyMovies(response.data);
       } catch (error) {
@@ -48,13 +47,6 @@ export const MoviesProvider = ({ children }: MovieContextProps) => {
     };
     fetchMovies();
   }, []);
-
-  /*
-  useEffect(() => {
-    console.log("myMovies state updated:", myMovies);
-  }, [myMovies]);
-
-  */
 
   return (
     <MoviesContext.Provider value={{ myMovies, setMyMovies }}>

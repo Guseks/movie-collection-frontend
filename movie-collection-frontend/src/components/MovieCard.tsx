@@ -65,7 +65,7 @@ const MovieCard = ({ movie, genres }: movieCardProps) => {
   async function checkForMovie() {
     const foundMovie = myMovies.some((m: Movie) => m.id === movie.id);
     if (foundMovie) {
-      console.log(`Movie  ${movie.title} is in list`);
+      //console.log(`Movie  ${movie.title} is in list`);
       setIsMovieInList(true);
     } else {
       setIsMovieInList(false);
