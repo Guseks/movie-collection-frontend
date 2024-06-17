@@ -61,4 +61,4 @@ connectToDatabase().then(() => {
   console.error('Error connecting to database:', err);
 });
 
-
+export default app;
