@@ -17,8 +17,9 @@ app.use("/", router);
 
 app.use(errorHandler);
 
-const port = 3001;
-const hostname = 'localhost';
+
+//const hostname = '192.168.1.74';
+const PORT = process.env.PORT;
 
 /*
 app.listen(port, () => {
@@ -28,10 +29,12 @@ app.listen(port, () => {
 */
 
 async function connectToDatabase() {
-  const dbPath = process.env.dbPath;
+  //const dbPath = process.env.dbPath;
+  const dbURL = process.env.dbURL;
+  
   
   try {
-    await mongoose.connect(dbPath);
+    await mongoose.connect(dbURL);
     /*
     const testMovie = new Movie ({
       movieID: "1234",
@@ -52,7 +55,7 @@ async function connectToDatabase() {
 // Call the connectToDatabase function and then start the server
 connectToDatabase().then(() => {
   app.listen(port, hostname, () => {
-    console.log(`Server is running on http://${hostname}:${port}`);
+    console.log(`Server is running on port ${PORT}`);
   });
 }).catch(err => {
   console.error('Error connecting to database:', err);
