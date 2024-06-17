@@ -54,7 +54,7 @@ async function connectToDatabase() {
 
 // Call the connectToDatabase function and then start the server
 connectToDatabase().then(() => {
-  app.listen(port, hostname, () => {
+  app.listen(PORT, hostname, () => {
     console.log(`Server is running on port ${PORT}`);
   });
 }).catch(err => {
