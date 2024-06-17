@@ -1,10 +1,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import router from "./src/routes.js"
+import router from "./routes.js"
 import dotenv from "dotenv"
-import { errorHandler } from './src/middleware/errorHandler.js'
-import { Movie } from './src/database/movieModel.js';
+import { errorHandler } from './middleware/errorHandler.js'
+import { Movie } from './database/movieModel.js';
 
 dotenv.config();
 
