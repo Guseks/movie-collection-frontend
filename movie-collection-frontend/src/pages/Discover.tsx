@@ -1,6 +1,7 @@
 import useGenres from "../hooks/useGenres";
-import { useState } from "react";
-import useMovies from "../hooks/useMovies";
+import { useEffect, useState } from "react";
+import axios from "axios";
+//import useMovies from "../hooks/useMovies";
 import MovieCard from "../components/MovieCard";
 
 import {
@@ -36,6 +37,7 @@ interface SelectedOptions {
 
 const Discover = () => {
   const { genres } = useGenres();
+  const [movieList, setMovieList] = useState<Movie[]>([]);
 
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({
     releaseYear: 2010,
@@ -117,11 +119,40 @@ const Discover = () => {
     page: `${selectedOptions.page}`,
   };
 
+  const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
+  const API_KEY = import.meta.env.VITE_API_KEY;
+
+  const queryParams = {
+    with_genres: searchOptions.genreID.join(" | "),
+    language: searchOptions.language,
+    "primary_release_date.gte": searchOptions.releaseDate,
+    "vote_average.gte": searchOptions.voteAverage,
+    with_original_language: searchOptions.originalLanguage,
+    include_adult: searchOptions.includeAdult,
+  };
+
+  const formattedParams = new URLSearchParams(queryParams).toString();
   const API_ROUTE = "/discover/movie";
+
+  useEffect(() => {
+    async function getMovies() {
+      const response = await axios.get(
+        `${BASE_API_URL}${API_ROUTE}?api_key=${API_KEY}&${formattedParams}&page=${parseInt(
+          searchOptions.page
+        )}`
+      );
+      setMovieList(response.data.results);
+    }
+    getMovies();
+  }, []);
+
+  /*
   const { movieList }: { movieList: Movie[] } = useMovies({
     searchOptions: searchOptions,
     apiRoute: API_ROUTE,
   });
+
+  */
 
   return (
     <Container className="flex bg-black px-5 py-5 rounded-md">

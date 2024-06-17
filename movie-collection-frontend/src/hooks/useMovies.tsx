@@ -54,7 +54,7 @@ const useMovies = ({ searchOptions, apiRoute }: useMoviesProps) => {
       setMovieList(response.data.results);
     }
     getMovies();
-  }, [searchOptions]);
+  }, []);
 
   /*
   searchOptions.genreID,
