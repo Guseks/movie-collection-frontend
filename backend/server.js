@@ -1,10 +1,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import router from "./routes.js"
+import router from "./src/routes.js"
 import dotenv from "dotenv"
-import { errorHandler } from './middleware/errorHandler.js'
-import { Movie } from './database/movieModel.js';
+import { errorHandler } from './src/middleware/errorHandler.js'
+import { Movie } from './src/database/movieModel.js';
 
 dotenv.config();
 
@@ -61,4 +61,3 @@ connectToDatabase().then(() => {
   console.error('Error connecting to database:', err);
 });
 
-export default app;
